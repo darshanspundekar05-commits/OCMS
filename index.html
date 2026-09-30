@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CampusCare - College Complaint Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar"><div class="container nav">
+  <a class="logo" href="#home"><span class="logo-box">CC</span>Campus<b>Care</b></a>
+  <nav><a href="#home">Home</a><a href="#categories">Categories</a><a href="#process">How it works</a><a href="#dashboard" id="navDash" hidden>Dashboard</a></nav>
+  <div class="nav-buttons" id="navAuth"></div>
+</div></header>
+
+<section class="hero" id="home"><div class="container hero-content">
+  <div class="hero-text">
+    <h1>Speak up.<br>We will follow through.</h1>
+    <p>Report electricity, water, lab, network or furniture problems on campus. Get an ID straight away and follow every update until it is fixed.</p>
+    <div class="hero-buttons">
+      <button class="btn btn-blue" data-act="submit">Submit a complaint</button>
+      <a class="btn btn-ghost" href="#tracker">Track a complaint</a>
+    </div>
+    <div class="stats" id="heroStats"></div>
+  </div>
+
+  <div class="status-card" id="tracker">
+    <h3>Track your complaint</h3>
+    <form id="trackForm" class="track-form">
+      <input id="trackId" placeholder="Enter ID, e.g. OCMS-LK3F9A2B" required aria-label="Complaint ID">
+      <button class="btn btn-blue">Track</button>
+    </form>
+    <div id="trackResult"><p class="muted">Your complaint ID is shown after you submit. Status updates appear here.</p></div>
+  </div>
+</div></section>
+
+<section class="section dash" id="dashboard" hidden><div class="container">
+  <div class="dash-head">
+    <div><h2 id="dashTitle">My complaints</h2><p class="muted" id="dashSub"></p></div>
+    <div class="dash-tools">
+      <input id="search" placeholder="Search subject or ID" aria-label="Search">
+      <select id="filter" aria-label="Filter by status"></select>
+    </div>
+  </div>
+  <div class="chips" id="chips"></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ID</th><th>Subject</th><th id="stuTh" hidden>Student</th><th>Category</th><th>Date</th><th>Status</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table></div>
+</div></section>
+
+<section class="section" id="categories"><div class="container">
+  <div class="heading"><h2>What can you report?</h2><p>Pick a category to start a complaint.</p></div>
+  <div class="cards" id="cards"></div>
+</div></section>
+
+<section class="section gray" id="process"><div class="container">
+  <div class="heading"><h2>How it works</h2><p>Three steps from problem to resolution.</p></div>
+  <div class="steps">
+    <div class="step"><span class="number">1</span><h3>Submit</h3><p>Log in with your student account, describe the problem and where it is. You get a complaint ID instantly.</p></div>
+    <div class="step"><span class="number">2</span><h3>Track</h3><p>Enter your ID above at any time. No login needed to check progress.</p></div>
+    <div class="step"><span class="number">3</span><h3>Resolved</h3><p>The concerned department updates the status with notes until the issue is closed.</p></div>
+  </div>
+</div></section>
+
+<footer><div class="container footer"><b>CampusCare</b><span>College Complaint Management System &copy; 2026</span></div></footer>
+
+<!-- Login / register -->
+<dialog id="authDlg"><form id="authForm">
+  <h2 id="authTitle">Student login</h2>
+  <div class="tabs" id="roleTabs"><button type="button" class="on" data-role="user">Student</button><button type="button" data-role="admin">Admin</button></div>
+  <label id="nameRow" hidden>Full name<input name="name" autocomplete="name"></label>
+  <div class="two" id="regRow" hidden><label>Roll number<input name="rollNo" placeholder="e.g. 22CS101"></label><label>Department<select name="department"><option value="">Select</option><option>Computer Science</option><option>Information Technology</option><option>Electronics</option><option>Mechanical</option><option>Civil</option><option>Electrical</option><option>Commerce</option><option>Arts &amp; Science</option><option>Management</option></select></label></div>
+  <label>Email<input name="email" type="email" required autocomplete="email"></label>
+  <label>Password<span class="pw"><input name="password" type="password" required minlength="6" autocomplete="current-password"><button type="button" class="show" id="pwToggle" aria-label="Show password">Show</button></span></label>
+  <p class="error" id="authErr"></p>
+  <div class="actions"><button type="button" class="btn btn-light" data-close>Cancel</button><button class="btn btn-blue" id="authBtn">Log in</button></div>
+  <p class="switch"><span id="authSwitchText">New here?</span> <a href="#" id="authSwitch">Create an account</a></p>
+</form></dialog>
+
+<!-- Submit complaint -->
+<dialog id="subDlg"><form id="subForm">
+  <h2>Submit a complaint</h2><p class="muted">Sent under your student profile. Only the college admin can see your details.</p>
+  <label>Category<select name="category" id="catSel" required></select></label>
+  <label>Subject<input name="subject" maxlength="120" required placeholder="Short summary of the problem"></label>
+  <label>Description<textarea name="description" rows="4" minlength="10" required placeholder="What happened, since when, who is affected?"></textarea></label>
+  <div class="two"><label>Location<input name="location" placeholder="Street, area, landmark"></label>
+  <label>Phone (optional)<input name="phone" type="tel"></label></div>
+  <label>Priority<select name="priority"><option>Low</option><option selected>Medium</option><option>High</option></select></label>
+  <p class="error" id="subErr"></p>
+  <div class="actions"><button type="button" class="btn btn-light" data-close>Cancel</button><button class="btn btn-blue">Send complaint</button></div>
+</form></dialog>
+
+<div id="toast" role="status"></div>
+<script src="script.js"></script>
+</body>
+</html>
